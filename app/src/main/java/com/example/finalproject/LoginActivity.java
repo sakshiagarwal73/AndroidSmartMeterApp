@@ -34,13 +34,13 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        mTextUsername = (EditText)findViewById(R.id.edittext_username);
-        mTextPassword = (EditText)findViewById(R.id.edittext_password);
-        mButtonLogin = (Button) findViewById(R.id.button_login);
+        mTextUsername = findViewById(R.id.edittext_username);
+        mTextPassword = findViewById(R.id.edittext_password);
+        mButtonLogin =  findViewById(R.id.button_login);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("Consumer_Details");
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         final String[] user = new String[1];
-        final Boolean[] ispresent = {false};
+       final Boolean[] ispresent = {false};
 
         mButtonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         }
 
-                        if(ispresent[0] ==false)
+                        if(ispresent[0])
                         {
                             Toast.makeText(getApplicationContext(),"Username doesn't exist",Toast.LENGTH_LONG).show();
                         }
@@ -101,7 +101,7 @@ public class LoginActivity extends AppCompatActivity {
                 });
             }
         });
-        if(ispresent[0]==true)
+        if(ispresent[0])
         {
             Intent i=new Intent(LoginActivity.this,MainActivity.class);
             i.putExtra("user", user[0]);
