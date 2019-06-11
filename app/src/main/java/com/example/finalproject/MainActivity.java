@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -29,14 +30,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         is=getIntent(); // receive the intent from first activity
-        String consumerid =is.getStringExtra("user");
+        final String consumerid =is.getStringExtra("user");
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Consumer_Details");
 
         tvConsumer_Id = (TextView)findViewById(R.id.tvConsumer_Id);
         tvPhone = (TextView)findViewById(R.id.tvPhone);
         tvName = (TextView)findViewById(R.id.tvName);
-        final String user = "";
 
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -47,13 +47,15 @@ public class MainActivity extends AppCompatActivity {
                 {
                     DataSnapshot item = items.next();
                     String id = item.child("Consumer_Id").getValue().toString();
-                    if(id.equals(user))
+                    if(id.equals(consumerid)) //// lertitstry it out wait
                     {
                         String Name = item.child("Name").getValue().toString();
                         String phonenumber = item.child("Phone Number").getValue().toString();
                         tvConsumer_Id.setText("Consumer Id: " + id);
                         tvName.setText("Name: " + Name);
                         tvPhone.setText("Phone Number:" + phonenumber);
+
+                        Log.d("User Here", "onDataChange:  " + id);
                         break;
                     }
 

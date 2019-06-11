@@ -9,9 +9,9 @@ public class SHAExample {
     public static String getPassword(String pass) throws NoSuchAlgorithmException
     {
 
-        byte[] salt = getSalt();
+        //byte[] salt = getSalt();
 
-        String securePassword = get_SHA_1_SecurePassword(pass, salt);
+        String securePassword = get_SHA_1_SecurePassword(pass);
         //System.out.println(securePassword);
 
         return securePassword;
@@ -19,12 +19,12 @@ public class SHAExample {
 
     }
 
-    private static String get_SHA_1_SecurePassword(String passwordToHash, byte[] salt)
+    private static String get_SHA_1_SecurePassword(String passwordToHash)
     {
         String generatedPassword = null;
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-1");
-            md.update(salt);
+            //md.update(salt);
             byte[] bytes = md.digest(passwordToHash.getBytes());
             StringBuilder sb = new StringBuilder();
             for(int i=0; i< bytes.length ;i++)
