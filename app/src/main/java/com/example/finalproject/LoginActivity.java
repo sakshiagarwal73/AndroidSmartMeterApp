@@ -92,8 +92,13 @@ public class LoginActivity extends AppCompatActivity {
                                      ispresent[0] = true;
                                      Log.d("Inside Data Write", "onDataChange: pwd match ");
                                      //Toast.makeText(LoginActivity.this, "pwd match", Toast.LENGTH_SHORT).show();
-                                     Intent i = new Intent(LoginActivity.this,MainActivity.class);
-                                     i.putExtra("user",user[0]);
+                                     Intent i = new Intent(LoginActivity.this,change_password.class);
+
+                                     Bundle extras  = new Bundle();
+                                     extras.putString("user",user[0]);
+                                     extras.putString("password",userpassword);
+                                     i.putExtras(extras);
+                                     //i.putExtra("user",user[0]);*/
                                      startActivity(i);
                                      finish();
                                  }

@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">FinalProject</string>
+    <string name="list"><li> Change your light bulbs to LEDs</li>\n\n
+            <li>\n If possible, wash your clothes in cold water</li>\n\n
+            <li> Use your microwave instead of your stove when cooking</li>\n\n
+            <li> To ensure your appliances are running efficiently, defrost your refrigerator and freezer before ice buildup becomes 1/4-inch thick.</li>\n\n
+            <li> Turn off heated dry on your dishwasher and air dry instead.</li>\n\n
+            <li> Refrigerators and freezers actually operate most efficiently when full, so keep your refrigerator and freezer as full as possible. Be careful about overfilling them as this will reduce airflow and cause the appliance to work harder.</li>\n\n
+            <li> Turn off the oven a few minutes before cooking time runs out. Your food will continue to cook without using the extra electricity.</li>\n\n
+            <li> Avoid placing appliances that give off heat, such as lamps or TVs, near a thermostat.</li>\n\n
+
+    </string>
 </resources>
