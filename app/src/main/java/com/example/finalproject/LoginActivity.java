@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -41,16 +42,15 @@ public class LoginActivity extends AppCompatActivity {
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-       final Boolean[] ispresent = {false};
+        final Boolean[] ispresent = {false};
         final String[] user = new String[1];
         mButtonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                 user[0] = mTextUsername.getText().toString();
+                user[0] = mTextUsername.getText().toString();
                 final String pass = mTextPassword.getText().toString();
 
-
-                mDatabase.child("Consumer_Details").addValueEventListener(new ValueEventListener() {
+                mDatabase.child("Consumer_Details").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         Log.d("Inside Data Write", "onDataChange: success " );
@@ -62,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
                         DataSnapshot item = null;
                         while(items.hasNext())
                         {
-                             item = items.next();
+                            item = items.next();
                             String id = item.child("Consumer_Id").getValue().toString();
                             if(id.equals(user[0]))
                             {
@@ -85,33 +85,34 @@ public class LoginActivity extends AppCompatActivity {
                             String userpassword = item.child("Password").getValue().toString();
                             SHAExample sha = new SHAExample();
                             try {
-                                 String hash = sha.getPassword(pass);
+                                String hash = sha.getPassword(pass);
                                 Log.d("Inside Data Write", "hash Pwd: " + hash + " " + hash);
-                                 if(userpassword.equals(hash)) //change back to hash later
-                                 {
-                                     ispresent[0] = true;
-                                     Log.d("Inside Data Write", "onDataChange: pwd match ");
-                                     //Toast.makeText(LoginActivity.this, "pwd match", Toast.LENGTH_SHORT).show();
-                                     Intent i = new Intent(LoginActivity.this,change_password.class);
+                                if(userpassword.equals(hash)) //achange back to hash later @todo
+                                {
+                                    ispresent[0] = true;
+                                    Log.d("Inside Data Write", "onDataChange: pwd match ");
+                                    //Toast.makeText(LoginActivity.this, "pwd match", Toast.LENGTH_SHORT).show();
+                                    Intent i = new Intent(LoginActivity.this, ConsumptionActivity.class);
+                                           /* .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                            .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);*/
+                                    /*Bundle extras  = new Bundle();
+                                    extras.putString("user",user[0]);
+                                    extras.putString("password",userpassword);*/
+                                    i.putExtra("user",user[0]);
+                                    startActivity(i);
+                                    finish();
+                                }
+                                else
+                                {
 
-                                     Bundle extras  = new Bundle();
-                                     extras.putString("user",user[0]);
-                                     extras.putString("password",userpassword);
-                                     i.putExtras(extras);
-                                     //i.putExtra("user",user[0]);*/
-                                     startActivity(i);
-                                     finish();
-                                 }
-                                 else
-                                 {
-
-                                     if(ispresent[0])
-                                     {
-                                         Toast.makeText(getApplicationContext(),"Wrong Password",Toast.LENGTH_LONG).show();
-                                     }
-                                     ispresent[0] = false;
-                                     Log.d("Inside Data Write", "onDataChange: wrong pwd");
-                                 }
+                                    if(ispresent[0])
+                                    {
+                                        Toast.makeText(getApplicationContext(),"Wrong Password",Toast.LENGTH_LONG).show();
+                                    }
+                                    ispresent[0] = false;
+                                    Log.d("Inside Data Write", "onDataChange: wrong pwd");
+                                }
                             } catch (NoSuchAlgorithmException e) {
                                 e.printStackTrace();
                             }
@@ -125,15 +126,16 @@ public class LoginActivity extends AppCompatActivity {
                         Log.d("Inside Data Write", "onCancelled: ");
 
                     }
-                }); // username exists and wrong password is coming
+                });
 
             }
         });
-       /* if(ispresent[0])
-        {
-            Intent i=new Intent(LoginActivity.this,MainActivity.class);
-            i.putExtra("user", user[0]);
-            startActivity(i); // going to mainactivity
-        }*/
+
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+
     }
 }

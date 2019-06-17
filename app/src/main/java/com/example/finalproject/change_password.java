@@ -41,16 +41,16 @@ public class change_password extends AppCompatActivity {
         current = findViewById(R.id.current);
         newpass = findViewById(R.id.newpass);
         confirm = findViewById(R.id.confirm);
-        Button btn = findViewById(R.id.btn);
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+         btn = findViewById(R.id.btn);
+        mDatabase = FirebaseDatabase.getInstance().getReference();//////mistake
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 String currpass = current.getText().toString();
-                String newpassword = newpass.getText().toString();
-                String confirmpass = confirm.getText().toString();
+                String newpassword = newpass.getText().toString(); ////mistake
+                String confirmpass = confirm.getText().toString();///mistake
                 SHAExample sha = new SHAExample();
                 String hashpass = "";
                 try {
@@ -99,7 +99,8 @@ public class change_password extends AppCompatActivity {
                                            // Log.d("value of key", "onDataChange: "+ mDatabase.child("Consumer_Details").child(String.valueOf(item)).child("Password").getKey());
                                            //mDatabase.child("finalproject-745b4/Consumer_Details/" + item.getKey());
                                             Log.d("valueOfSnap", "onDataChange:"+ item.getValue().toString());
-
+                                            item.child("Password").getRef().setValue(finalNewhash);
+                                            Toast.makeText(getApplicationContext(),"Password updated successfully",Toast.LENGTH_LONG).show();
                                             break;
                                         }
                                     }

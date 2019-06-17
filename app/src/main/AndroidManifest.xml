@@ -9,9 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EnergySavingTips">
+        <activity android:name=".ConsumptionActivity">
 
         </activity>
+        <activity android:name=".EnergySavingTips"></activity>
         <activity android:name=".OptionsDisplay" />
         <activity android:name=".change_password" />
         <activity android:name=".LoginActivity">

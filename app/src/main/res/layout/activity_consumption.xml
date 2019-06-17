@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
+    tools:context=".ConsumptionActivity"
+
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+
+        >
+
+        <Spinner
+            android:id="@+id/spinnerYear"
+            android:layout_marginLeft="40dp"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="140dp"
+
+            android:layout_height="wrap_content" />
+        <Spinner
+            android:id="@+id/spinnerMonth"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="140dp"
+            android:layout_marginLeft="100dp"
+
+
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <Button
+        android:id="@+id/btnShow"
+        android:layout_marginTop="200dp"
+        android:layout_marginLeft="120dp"
+        android:text="Enter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tvDisplay"
+        android:layout_marginTop="260dp"
+        android:layout_marginLeft="120dp"
+        android:hint="Value is"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>
