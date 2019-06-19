@@ -116,52 +116,34 @@ public class ConsumptionActivity extends AppCompatActivity implements AdapterVie
                                }
                            }
 
-                           int diff = Integer.parseInt(currReading) - Integer.parseInt(prevReading);
+                           int diff = Integer.valueOf(currReading) - Integer.valueOf(prevReading);
                            tvDisplay.setText(String.valueOf(diff) + " kWh");
 
                        }
 
-                       else if(month.equals("January"))
-                       {
-                           if(year.equals("2019"))
+                       else if(month.equals("January")) {
+                           Iterator<DataSnapshot> items = dataSnapshot.getChildren().iterator();
+                           DataSnapshot item = null;
+                           String itemMonth;
+                           String curr;
+                           String prev;
+                           while(items.hasNext())
                            {
-                               Iterator<DataSnapshot> items = dataSnapshot.getChildren().iterator();
-                               DataSnapshot item = null;
-                               String currmonth = "";
-                               while(items.hasNext())
-                               {
                                    item = items.next();
-                                   currmonth = item.child("Month").getValue().toString();
-                                   if(currmonth.equals("January"))
-                                   {
-                                       String reading = item.child("Reading").getValue().toString();
-                                       tvDisplay.setText(reading);
-                                   }
+                                   itemMonth = item.child("Month").getValue().toString();
+                                   if(month.equals(itemMonth)) {
+                                       prev = item.child("Previous").getValue().toString();
+                                       curr = item.child("Reading").getValue().toString();
+
+                                       int diff = Integer.valueOf(curr) - Integer.valueOf(prev);
+                                       tvDisplay.setText(String.valueOf(diff) + " kWh");
+                                       break;
                                }
-                           }
-
-                           else
-                           {
-                               int curryear = Integer.parseInt(year);
-                               prevyear = curryear - 1;
-                               Iterator<DataSnapshot> items = dataSnapshot.getChildren().iterator();
-                               DataSnapshot item = null;
-                               String currmonth = "";
-                               while(items.hasNext())
-                               {
-                                   item = items.next();
-                                   currmonth = item.child("Month").getValue().toString();
-                                   if(currmonth.equals("January"))
-                                   {
-                                        current_reading = item.child("Reading").getValue().toString();
-
-                                   }
-                               }
-
                            }
                        }
 
                    }
+
 
                    @Override
                    public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -169,36 +151,7 @@ public class ConsumptionActivity extends AppCompatActivity implements AdapterVie
                    }
                });
 
-               if(current_reading.equals("")==false)
-               {
-                   mDatabase.child("Years").child(String.valueOf(prevyear)).child(id).addValueEventListener(new ValueEventListener() {
-                       @Override
-                       public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                           Iterator<DataSnapshot> items = dataSnapshot.getChildren().iterator();
-                           DataSnapshot item = null;
-                           while(items.hasNext())
-                           {
-                               item = items.next();
-                               String mnth = item.child("Month").getValue().toString();
-                               String reading = "";
-                               if(mnth.equals("December"))
-                               {
-                                   reading = item.child("Reading").getValue().toString();
-                               }
-
-                               int diff = Integer.parseInt(current_reading) - Integer.parseInt(reading);
-                               tvDisplay.setText(String.valueOf(diff));
-                           }
-
-                       }
-
-                       @Override
-                       public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                       }
-                   });
-               }
            }
        });
 
