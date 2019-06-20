@@ -6,12 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".EnergySavingTips"
     android:orientation="vertical"
-    android:background="#9C27B0">
+    android:background="#37A4F1">
 
        <TextView
            android:text="Save Energy At Your Home!"
            android:background="#ffffff"
-           android:textColor="#9C27B0"
+           android:textColor="#37A4F1"
            android:textSize="30dp"
            android:layout_marginLeft="30dp"
            android:layout_marginRight="30dp"

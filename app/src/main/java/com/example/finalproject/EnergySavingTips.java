@@ -19,4 +19,9 @@ public class EnergySavingTips extends AppCompatActivity {
         tv.setMovementMethod(new ScrollingMovementMethod());
 
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }

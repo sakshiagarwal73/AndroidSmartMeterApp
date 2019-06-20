@@ -22,7 +22,7 @@ public class ElecDetails extends AppCompatActivity implements AdapterView.OnItem
     Intent is;
     String id;
     Intent is2;
-
+    Intent is3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +57,17 @@ public class ElecDetails extends AppCompatActivity implements AdapterView.OnItem
                 extras.putString("year",year);
                 is2.putExtras(extras);
                 startActivity(is2);
-                finish();
+                //finish();
+            }
+        });
+
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                is3 = new Intent(ElecDetails.this,ConsumptionActivity.class);
+                is3.putExtra("user",id);
+                startActivity(is3);
+                //finish();
             }
         });
     }

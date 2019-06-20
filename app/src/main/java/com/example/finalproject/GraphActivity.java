@@ -13,10 +13,13 @@ import android.widget.Button;
 import android.widget.Spinner;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -83,6 +86,71 @@ public class GraphActivity extends AppCompatActivity  {
                     Log.d("next In ElecDetails","Reading is: " + reading);
                     graphMonths.put(itemmonth,Integer.valueOf(reading));
                 }
+
+                Log.d("Month "," Hashmap size is: " + graphMonths.size());
+                Iterator hm = graphMonths.entrySet().iterator();
+                while(hm.hasNext())
+                {
+                    Map.Entry mapEl = (Map.Entry)hm.next();
+                    Log.d("Month "," Hashmap is: " + mapEl.getKey().toString() + "  " +  mapEl.getValue().toString());
+                }
+
+                lineChart = (LineChart)findViewById(R.id.lineChart);
+
+                xAxes.add("January");
+                xAxes.add("February");
+                xAxes.add("March");
+                xAxes.add("April");
+                xAxes.add("May");
+                xAxes.add("June");
+                xAxes.add("July");
+                xAxes.add("August");
+                xAxes.add("September");
+                xAxes.add("October");
+                xAxes.add("November");
+                xAxes.add("December");
+
+
+
+
+                yAxes.add(new Entry(0,graphMonths.get("January")-Integer.valueOf(prev)));
+                yAxes.add(new Entry(1,graphMonths.get("February")-graphMonths.get("January")));
+                yAxes.add(new Entry(2,graphMonths.get("March")-graphMonths.get("February")));
+                yAxes.add(new Entry(3,graphMonths.get("April")-graphMonths.get("March")));
+                yAxes.add(new Entry(4,graphMonths.get("May")-graphMonths.get("April")));
+                yAxes.add(new Entry(5,graphMonths.get("June")-graphMonths.get("May")));
+                yAxes.add(new Entry(6,graphMonths.get("July")-graphMonths.get("June")));
+                yAxes.add(new Entry(7,graphMonths.get("August")-graphMonths.get("July")));
+                yAxes.add(new Entry(8,graphMonths.get("September")-graphMonths.get("August")));
+                yAxes.add(new Entry(9,graphMonths.get("October")-graphMonths.get("September")));
+                yAxes.add(new Entry(10,graphMonths.get("November")-graphMonths.get("October")));
+                yAxes.add(new Entry(11,graphMonths.get("December")-graphMonths.get("November")));
+
+                String[] xaxes = new String[xAxes.size()];
+
+                for(int i=0;i<xAxes.size();i++)
+                {
+                    xaxes[i] = xAxes.get(i).toString();
+                }
+
+                LineDataSet lineDataSet = new LineDataSet(yAxes,"values");
+                lineDataSet.setDrawCircles(true);
+                lineDataSet.setColor(Color.BLUE);
+
+                lineDataSets.add(lineDataSet);
+
+                lineChart.setData(new LineData(lineDataSets));
+                lineChart.setVisibleXRangeMaximum(65f);
+                lineChart.setTouchEnabled(true);
+                lineChart.setDragEnabled(true);
+
+              // Legend l = lineChart.getLegend();
+               //l.setPosition(Legend.LegendPosition.ABOVE_CHART_LEFT);
+               //l.setTextSize(7f);
+               //l.setTextColor(Color.BLACK);
+               //l.setXEntrySpace(5f);
+               //l.setYEntrySpace(5f);
+               // l.setCustom(ColorTemplate.VORDIPLOM_COLORS, new String[] {"Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"});
             }
 
             @Override
@@ -90,60 +158,9 @@ public class GraphActivity extends AppCompatActivity  {
 
             }
         });
-        Log.d("Month "," Hashmap size is: " + graphMonths.size());
-        Iterator hm = graphMonths.entrySet().iterator();
-        while(hm.hasNext())
-        {
-            Map.Entry mapEl = (Map.Entry)hm.next();
-            Log.d("Month "," Hashmap is: " + mapEl.getKey().toString() + "  " +  mapEl.getValue().toString());
-        }
 
-        lineChart = (LineChart)findViewById(R.id.lineChart);
 
-        xAxes.add("January");
-        xAxes.add("February");
-        xAxes.add("March");
-        xAxes.add("April");
-        xAxes.add("May");
-        xAxes.add("June");
-        xAxes.add("July");
-        xAxes.add("August");
-        xAxes.add("September");
-        xAxes.add("October");
-        xAxes.add("November");
-        xAxes.add("December");
 
-        yAxes.add(new Entry(0,Integer.valueOf(prev)));
-        yAxes.add(new Entry(1,graphMonths.get("February")-graphMonths.get("January")));
-        yAxes.add(new Entry(2,graphMonths.get("March")-graphMonths.get("February")));
-        yAxes.add(new Entry(3,graphMonths.get("April")-graphMonths.get("March")));
-        yAxes.add(new Entry(4,graphMonths.get("May")-graphMonths.get("April")));
-        yAxes.add(new Entry(5,graphMonths.get("June")-graphMonths.get("May")));
-        yAxes.add(new Entry(6,graphMonths.get("July")-graphMonths.get("June")));
-        yAxes.add(new Entry(7,graphMonths.get("August")-graphMonths.get("July")));
-        yAxes.add(new Entry(8,graphMonths.get("September")-graphMonths.get("August")));
-        yAxes.add(new Entry(9,graphMonths.get("October")-graphMonths.get("September")));
-        yAxes.add(new Entry(10,graphMonths.get("November")-graphMonths.get("October")));
-        yAxes.add(new Entry(11,graphMonths.get("December")-graphMonths.get("November")));
-
-        String[] xaxes = new String[xAxes.size()];
-
-        for(int i=0;i<xAxes.size();i++)
-        {
-            xaxes[i] = xAxes.get(i);
-        }
-
-        LineDataSet lineDataSet = new LineDataSet(yAxes,"values");
-        lineDataSet.setDrawCircles(true);
-        lineDataSet.setColor(Color.BLUE);
-
-        lineDataSets.add(lineDataSet);
-
-        lineChart.setData(new LineData(lineDataSets));
-
-        lineChart.setVisibleXRangeMaximum(65f);
-        lineChart.setTouchEnabled(true);
-        lineChart.setDragEnabled(true);
 
     }
 

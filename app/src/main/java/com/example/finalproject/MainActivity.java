@@ -23,7 +23,9 @@ public class MainActivity extends AppCompatActivity {
     TextView tvConsumer_Id;
     TextView tvPhone;
     TextView tvName;
+    TextView tvEmail,tvAdd,tvMetNo;
     Intent is;
+    TextView tviddisp,tvnamedisp,tvphonedisp,tvmetdisp,tvemaildisp,tvadddisp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +39,17 @@ public class MainActivity extends AppCompatActivity {
         tvConsumer_Id = (TextView)findViewById(R.id.tvConsumer_Id);
         tvPhone = (TextView)findViewById(R.id.tvPhone);
         tvName = (TextView)findViewById(R.id.tvName);
+        tvEmail = (TextView)findViewById(R.id.tvEmail);
+        tvAdd = (TextView)findViewById(R.id.tvAdd) ;
+        tvMetNo = (TextView)findViewById(R.id.tvMetNo);
+
+
+        tviddisp = findViewById(R.id.tviddisp);
+        tvnamedisp = findViewById(R.id.tvnamedisp);
+        tvphonedisp = findViewById(R.id.tvphonedisp);
+        tvemaildisp = findViewById(R.id.tvemaildisp);
+        tvmetdisp = findViewById(R.id.tvmetdisp);
+        tvadddisp = findViewById(R.id.tvadddisp);
 
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -51,9 +64,23 @@ public class MainActivity extends AppCompatActivity {
                     {
                         String Name = item.child("Name").getValue().toString();
                         String phonenumber = item.child("Phone Number").getValue().toString();
-                        tvConsumer_Id.setText("Consumer Id: " + id);
-                        tvName.setText("Name: " + Name);
-                        tvPhone.setText("Phone Number:" + phonenumber);
+                        String email = item.child("E-mail").getValue().toString();
+                        String mnum = item.child("Meter_number").getValue().toString();
+                        String add = item.child("Address").getValue().toString();
+
+                        tviddisp.setText("Consumer Id");
+                        tvnamedisp.setText("Name");
+                        tvphonedisp.setText("Phone Number");
+                        tvemaildisp.setText("Email Address");
+                        tvmetdisp.setText("Meter Number");
+                        tvadddisp.setText("Address");
+
+                        tvConsumer_Id.setText( id);
+                        tvName.setText( Name);
+                        tvPhone.setText( phonenumber);
+                        tvEmail.setText( email);
+                        tvMetNo.setText( mnum);
+                        tvAdd.setText( add);
 
                         Log.d("User Here", "onDataChange:  " + id);
                         break;
@@ -69,5 +96,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }

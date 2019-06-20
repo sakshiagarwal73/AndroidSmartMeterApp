@@ -13,7 +13,7 @@ public class OptionsDisplay extends AppCompatActivity {
     Intent is1;
     Button btnAccSet,btnTips,btnDetails,btnConsum;
     TextView tvAcc,tvTips,tvDetails,tvCons;
-    Intent is2;
+    Intent is2,is3,is4;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,12 +34,35 @@ public class OptionsDisplay extends AppCompatActivity {
         tvDetails = findViewById(R.id.tvDetails);
         tvCons = findViewById(R.id.tvCons);
 
+        btnConsum.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                is3 = new Intent(OptionsDisplay.this,ElecDetails.class);
+                is3.putExtra("user",consumerid);
+                startActivity(is3);
+                //finish();
+            }
+        });
+
+        btnAccSet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                is4 = new Intent(OptionsDisplay.this,change_password.class);
+                Bundle extras  = new Bundle();
+                extras.putString("user",consumerid);
+                extras.putString("password",userpassword);
+                is4.putExtras(extras);
+                startActivity(is4);
+                //finish();
+            }
+        });
+
        btnTips.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
                is1 = new Intent(OptionsDisplay.this,EnergySavingTips.class);
                startActivity(is1);
-               finish();
+               //finish();
            }
        });
 
@@ -49,9 +72,11 @@ public class OptionsDisplay extends AppCompatActivity {
                is2 = new Intent(OptionsDisplay.this,MainActivity.class);
                is2.putExtra("user",consumerid);
                startActivity(is2);
-               finish();
+              // finish();
            }
        });
 
     }
+
+
 }
